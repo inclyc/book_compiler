@@ -34,7 +34,7 @@ def main():
     contents = {}
     logger.info("Downloading {} chapters".format(len(index)))
     with tqdm(total=len(index)) as pbar:
-        with concurrent.futures.ThreadPoolExecutor() as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=185) as executor:
             futures = {executor.submit(chapter_job, SITE_ADDR + url): title
                        for url, title in index}
             for future in concurrent.futures.as_completed(futures):
